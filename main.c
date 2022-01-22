@@ -19,6 +19,7 @@ The rest is from memory, old class notes, or "Problem Solving and Program Design
 //Changed main to accept file input via terminal
 
 #define MAX_OPSIZE 25 //Maximum size of OPERATION specifier and OPERANDs
+#define MAX_OPERAND_SIZE 50
 
 #include <stdio.h>
 #include <string.h>
@@ -90,7 +91,7 @@ void RUN_ADDITION(FILE * input_file, _Bool print_hex)
     //We should be guaranteed TWO operands for addition.
     //First we read in the two operands, and then add them toget, and display the output.
 
-    char STR_OPERAND1[MAX_OPSIZE], STR_OPERAND2[MAX_OPSIZE];
+    char STR_OPERAND1[MAX_OPERAND_SIZE], STR_OPERAND2[MAX_OPERAND_SIZE];
     unsigned long long int OPERAND1 = 0, OPERAND2 = 0; 
 
     fscanf(input_file, "%s %s", STR_OPERAND1, STR_OPERAND2);
