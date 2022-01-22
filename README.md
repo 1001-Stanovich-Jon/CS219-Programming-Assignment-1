@@ -27,9 +27,17 @@ Install Linux or the windows subsystem.
 Navigate to build folder
 ```sh
 > make
-> ./main
+> ./main <input file name>
 > make clean
 ```
+
+So for this project it would be
+```sh
+> make
+> ./main Programming-Project-1.txt
+> make clean
+```
+
 
 ---
 
