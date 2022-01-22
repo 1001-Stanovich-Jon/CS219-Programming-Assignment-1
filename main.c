@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     //Check for correct input and if file can be opened
     if (argc != 2)
         {
-            printf("Correct usage: ./main <filename>");
+            printf("Correct usage: ./main <filename>\n");
             return 1;
         }
 
