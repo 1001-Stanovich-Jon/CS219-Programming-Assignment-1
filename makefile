@@ -1,7 +1,5 @@
 executable: main.c
-	cc main.c -o PA1
-	./PA1
-	rm PA1
+	cc main.c -o main
 
 clean:
-	rm PA1
+	rm main
