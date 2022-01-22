@@ -1,5 +1,7 @@
 # CS219 Programming Assignment 1
 
+Due 28 January 2022.
+
 ## Student Information
 Jonathan Jake Stanovich Rubalcava - jonstanovich@nevada.unr.edu
 
