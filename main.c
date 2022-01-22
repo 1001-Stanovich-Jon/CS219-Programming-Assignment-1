@@ -24,11 +24,20 @@ The rest is from memory, old class notes, or "Problem Solving and Program Design
 int main(void)
 {
     /*
-    Reads from an input file with the following format:
+    Reads from an input file with the following format(s):
 
-        OPERATION OPERAND_1 OPERAND_2
+        General Form:
+            OPERATION OPERANDS
 
-    Then OPERATION is performed on OPERAND_1 and OPERAND_2
+    Then the OPERATION is performed on the operands.
+    Operations and Output will be dependent on the assignment guidelines.
+
+        Project 1's Form:
+            Expected Input: ADD HEX_NUMBER_1 HEX_NUMBER_2
+            Output: Display the sum (in HEX) in a readable way.
+
+
+
     */
 
     //Input file details
@@ -44,40 +53,40 @@ int main(void)
 
     char OPERATION[MAX_OPSIZE], STR_OPERAND1[MAX_OPSIZE], STR_OPERAND2[MAX_OPSIZE];
     unsigned long int OPERAND1, OPERAND2;
+    unsigned int run_count = 0; //Displayed for each run, also used to prevent infinite while
 
     //Read from input file and perform operation
-    while (fscanf(input_file, "%s %s %s", OPERATION, STR_OPERAND1, STR_OPERAND2) != EOF )
+    while (fscanf(input_file, "%s %s %s", OPERATION, STR_OPERAND1, STR_OPERAND2) != EOF && run_count < 100)
     {
+        printf("\nRUN %d\n", run_count);
 
-        char **junk; //junk pointer needed for strtoul, no functionality for this program
+        char **junk; //junk pointer, needed for stroul(), no real functionality for its particular use in this program
 
         OPERAND1 = strtoul(STR_OPERAND1, junk, 16);
         OPERAND2 = strtoul(STR_OPERAND2, junk, 16);
 
         if (strcmp(OPERATION, "ADD") == 0)
             {
-               int message_space = 20;
+                int message_space = 20;
+                int message_length = 250;
 
-                char outmessage[200];
-                snprintf(outmessage, 199, "\n%*s: %15lu\n%*s: %15lu\n%*s: %15s\n%*s: %15lu\n\n",
-                message_space,"Operand 1 (Decimal)", OPERAND1,
-                message_space,"Operand 2 (Decimal)",OPERAND2,
-                message_space,"Operation",OPERATION,
-                message_space,"Result (Decimal)",OPERAND1 + OPERAND2);
+                char * output_format = "%*s: 0x%010lX\n%*s: 0x%010lX\n%*s: %12s\n%*s: 0x%010lX\n\n";
+                char output_message[message_length];
+                _Bool print_hex = 1; //Change to 0 to output decimal
 
-                printf("%s", outmessage);
+                if (!print_hex)
+                    output_format = "%*s: %12lu\n%*s: %12lu\n%*s: %12s\n%*s: %12lu\n\n";
 
-    /* Uncomment to print Hexadecimal numbers instead of decimal
-                char outmessageHEX[200];
-                snprintf(outmessageHEX, 199, "\n%*s: %15lX\n%*s: %15lX\n%*s: %15s\n%*s: %15lX\n\n",
-                message_space, "Operand 1 (Hex)", OPERAND1,
-                message_space, "Operand 2 (Hex)", OPERAND2,
-                message_space, "Operation", OPERATION,
-                message_space, "Result (Hex)", OPERAND1 + OPERAND2);
+                snprintf(output_message, (message_length-1), output_format,
+                message_space, "Operand 1 ", OPERAND1,
+                message_space, "Operand 2 ", OPERAND2,
+                message_space, "Operation ", OPERATION,
+                message_space, "Result ", OPERAND1 + OPERAND2);
 
-                printf("%s", outmessageHEX);
-    */
+                printf("%s", output_message);
+
             }
+        run_count++;
 
     }
     
