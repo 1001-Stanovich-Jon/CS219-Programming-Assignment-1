@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     //Main Loop - Reads operation, calls appropriate function to run operation
     while (fscanf(input_file, "%s", OPERATION) != EOF && run_count < 100)
         {
-            printf("\nRUN %d\n", run_count);
+            printf("\n     _____________________ \n\n\n     RUN %d\n", run_count);
 
             if (strcmp(OPERATION, "ADD")==0)
                 {
@@ -92,17 +92,18 @@ void RUN_ADDITION(FILE * input_file, _Bool print_hex)
     //First we read in the two operands, and then add them toget, and display the output.
 
     char STR_OPERAND1[MAX_OPERAND_SIZE], STR_OPERAND2[MAX_OPERAND_SIZE];
-    unsigned long long int OPERAND1 = 0, OPERAND2 = 0; 
+
+    u_int32_t OPERAND1 = 0, OPERAND2 = 0; //32-bit numbers were specified in the discord server.
 
     fscanf(input_file, "%s %s", STR_OPERAND1, STR_OPERAND2);
 
     OPERAND1 = strtoul(STR_OPERAND1, NULL, 16);
     OPERAND2 = strtoul(STR_OPERAND2, NULL, 16);
 
-    int message_space = 20; //Padding
+    int message_space = 15; //Padding
     int message_length = 500;
 
-    char * output_format = "%*s: 0x%010lX\n%*s: 0x%010lX\n%*s: %12s\n%*s: 0x%010lX\n\n";
+    char * output_format = "%*s: 0x%08lX\n%*s: 0x%08lX\n%*s: %10s\n%*s: 0x%08lX\n\n";
     char output_message[message_length];
 
     if (!print_hex)
