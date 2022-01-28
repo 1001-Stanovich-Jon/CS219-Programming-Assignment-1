@@ -19,7 +19,7 @@ The rest is from memory, old class notes, or "Problem Solving and Program Design
 //Changed main to accept file input via terminal
 
 #define MAX_OPSIZE 25 //Maximum size of OPERATION specifier and OPERANDs
-#define MAX_OPERAND_SIZE 50
+#define MESSAGE_PADDING 20 //Padding for output messages
 
 #include <stdio.h>
 #include <string.h>
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     //Main Loop - Reads operation, calls appropriate function to run operation
     while (fscanf(input_file, "%s", OPERATION) != EOF && run_count < 100)
         {
-            printf("\n     _____________________ \n\n\n     RUN %d\n", run_count);
+            printf("\n     _____________________ \n\n\n     INSTRUCTION %d\n\n", run_count);
 
             if (strcmp(OPERATION, "ADD")==0)
                 {
@@ -78,7 +78,10 @@ int main(int argc, char *argv[])
             //ADD MORE OPERATION HERE IN THE FUTURE
         }
 
-    fclose(input_file);
+    if (fclose(input_file) == 0)
+        {
+            printf("\n\n%20s", "----END----\n\n");
+        };
 
     return (0);
 }
@@ -91,19 +94,14 @@ void RUN_ADDITION(FILE * input_file, _Bool print_hex)
     //We should be guaranteed TWO operands for addition.
     //First we read in the two operands, and then add them toget, and display the output.
 
-    char STR_OPERAND1[MAX_OPERAND_SIZE], STR_OPERAND2[MAX_OPERAND_SIZE];
-
     u_int32_t OPERAND1 = 0, OPERAND2 = 0; //32-bit numbers were specified in the discord server.
 
-    fscanf(input_file, "%s %s", STR_OPERAND1, STR_OPERAND2);
-
-    OPERAND1 = strtoul(STR_OPERAND1, NULL, 16);
-    OPERAND2 = strtoul(STR_OPERAND2, NULL, 16);
+    fscanf(input_file, "%X %X", &OPERAND1, &OPERAND2);
 
     int message_space = 15; //Padding
     int message_length = 500;
 
-    char * output_format = "%*s: 0x%08lX\n%*s: 0x%08lX\n%*s: %10s\n%*s: 0x%08lX\n\n";
+    char * output_format = "%*s: 0x%08X\n%*s: 0x%08X\n%*s: %10s\n%*s: 0x%08X\n\n";
     char output_message[message_length];
 
     if (!print_hex)
